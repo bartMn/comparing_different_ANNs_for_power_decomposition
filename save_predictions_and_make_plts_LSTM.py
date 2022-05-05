@@ -12,7 +12,7 @@ path = os.path.abspath(os.getcwd())
 
 def main():
     
-    testing_houses = 20
+    testing_houses = 100
     newpath = path + os.sep + f"results_LSTMs" + os.sep + f"tested_on_{testing_houses}" +os.sep+ f"LSTM1"
     draw_graphs(datapath = newpath, testing_houses = testing_houses, anntype = "LSTM", loss_function = "mse")
     
@@ -94,7 +94,7 @@ def draw_graphs(datapath, testing_houses, anntype, loss_function):
     ############################################
     
     
-    
+    #[adapted form https://moonbooks.org/Articles/How-to-calculate-and-plot-a-cumulative-distribution-function-with-matplotlib-in-python-/]
     data = np.array(controllable_load_errors)
     f1 = plt.figure()
     hx, hy, _ = plt.hist(data, bins= 100 + 1, density=True, color="lightblue")
@@ -141,6 +141,7 @@ def draw_graphs(datapath, testing_houses, anntype, loss_function):
 #######################
 
     for i in range(6):
+        #[adapted form https://moonbooks.org/Articles/How-to-calculate-and-plot-a-cumulative-distribution-function-with-matplotlib-in-python-/]
         data = np.array(data_single_category[i])
         #f3 = plt.figure()
         hx, hy, _ = plt.hist(data, bins= 100 + 1, density=True, color="lightblue")

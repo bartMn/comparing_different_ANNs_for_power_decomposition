@@ -12,7 +12,7 @@ PATH = os.path.abspath(os.getcwd())
 
 def main():
     folders = ["results_mse", "results_huber", "results_KLD", "results_mape", "results_msle"]
-    folder_num = 4
+    folder_num = 1
     new_path = PATH + os.sep + folders[folder_num]
     loss_function = folders[folder_num].split('_')[1]
     graphs(20, new_path, loss_function)
@@ -104,10 +104,10 @@ def draw_graphs(datapath, testing_houses, anntype, loss_function):
     ############################################
     
     
-    
+    #[adapted form https://moonbooks.org/Articles/How-to-calculate-and-plot-a-cumulative-distribution-function-with-matplotlib-in-python-/]
     data = np.array(controllable_load_errors)
     f1 = plt.figure()
-    hx, hy, _ = plt.hist(data, bins= 100 + 1, density=True, color="lightblue")
+    hx, hy, _ = plt.hist(data, bins= 100 + 1, density=True, color="lightblue") 
     plt.title(f'controllable load\npdf for {testing_houses}_{anntype}')
     plt.xlabel("absolute error value")
     plt.ylabel("percentage of occurrence [%]")
@@ -151,6 +151,7 @@ def draw_graphs(datapath, testing_houses, anntype, loss_function):
 #######################
 
     for i in range(6):
+        #[adapted form https://moonbooks.org/Articles/How-to-calculate-and-plot-a-cumulative-distribution-function-with-matplotlib-in-python-/]
         data = np.array(data_single_category[i])
         #f3 = plt.figure()
         hx, hy, _ = plt.hist(data, bins= 100 + 1, density=True, color="lightblue")
