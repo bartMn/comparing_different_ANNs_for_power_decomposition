@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 plt.rcParams.update({'font.size': 13})
 
-def make_plots(anns_folders, number):
+def make_plots(anns_folders, houses):
     
     basic_datapath = os.path.abspath(os.getcwd()) #+os.sep+ f"results_{loss_function}"
     categories = ["category 1", "category 2", "category 3", "category 4", "category 5", "category 6", "controllable load"]
@@ -24,6 +24,7 @@ def make_plots(anns_folders, number):
                     
                     
             ############################################################
+            #[adapted from https://www.tutorialspoint.com/how-to-plot-cdf-in-matplotlib-in-python]
             count, bins_count = np.histogram(error, bins=100)
             pdf = count / sum(count)
             cdf = np.cumsum(pdf)
@@ -36,24 +37,24 @@ def make_plots(anns_folders, number):
         plt.grid()
         plt.legend(loc="upper right")
         plt.xlabel("absolute error [p.u.]")
-        plt.ylabel("fractions of errors smaller than corresponding value")
-        plt.xlim([0, 0.3])
+        plt.ylabel("Probability")
+        plt.xlim([0, 2.5])
         plt.ylim([0-0.1, 1+0.1])
-        path_to_save = basic_datapath +os.sep+ "plots" +os.sep+ f"{categories[category]} LSTM_{number}.png"
+        path_to_save = basic_datapath +os.sep+ "plots" +os.sep+ f"{categories[category]} LSTM_{houses}.png"
         plt.savefig(path_to_save, bbox_inches='tight')
         plt.close()
         print(f"plot for category {category} done")
     
 
 def main():
-    number = 20
-    winners = ["results_LSTMs" +os.sep+ f"tested_on_{number}" +os.sep+ "LSTM1",
-               "results_LSTMs" +os.sep+ f"tested_on_{number}" +os.sep+ "LSTM2",
-               "results_LSTMs" +os.sep+ f"tested_on_{number}" +os.sep+ "LSTM3",
-               "results_LSTMs" +os.sep+ f"tested_on_{number}" +os.sep+ "LSTM4",
+    houses = 100
+    winners = ["results_LSTMs" +os.sep+ f"tested_on_{houses}" +os.sep+ "LSTM1",
+               "results_LSTMs" +os.sep+ f"tested_on_{houses}" +os.sep+ "LSTM2",
+               "results_LSTMs" +os.sep+ f"tested_on_{houses}" +os.sep+ "LSTM3",
+               "results_LSTMs" +os.sep+ f"tested_on_{houses}" +os.sep+ "LSTM4",
               ]    
     
-    make_plots(winners, number)
+    make_plots(winners, houses)
 
     
 if __name__ == "__main__":

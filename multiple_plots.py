@@ -24,6 +24,7 @@ def make_plots(anns_folders, houses_tested):
                     
                     
             ############################################################
+            #[adapted from https://www.tutorialspoint.com/how-to-plot-cdf-in-matplotlib-in-python]
             count, bins_count = np.histogram(error, bins=100)
             pdf = count / sum(count)
             cdf = np.cumsum(pdf)
@@ -36,7 +37,7 @@ def make_plots(anns_folders, houses_tested):
         plt.grid()
         plt.legend(loc="upper right")
         plt.xlabel("absolute error [p.u.]")
-        plt.ylabel("fractions of errors smaller than corresponding value")
+        plt.ylabel("Probability")
         plt.xlim([0, 0.3])
         plt.ylim([0-0.1, 1+0.1])
         path_to_save = basic_datapath +os.sep+ "plots" +os.sep+ f"{categories[category]} (tested on houses {houses_tested}).png"

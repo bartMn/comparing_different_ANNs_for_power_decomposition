@@ -1,3 +1,5 @@
+#[inspired by https://learning.edx.org/course/course-v1:HarvardX+CS50AI+1T2020/home]
+
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
@@ -30,8 +32,8 @@ class ANN():
         self.files_to_test = files_to_test
         self.steps = steps
         self.file_to_write = file_to_write
-        self.loss_function = "mape"
-        #self.loss_function = tf.keras.losses.Huber()
+        #self.loss_function = "mse"
+        self.loss_function = tf.keras.losses.Huber()
         
         evidence, labels = self.get_data(self.files_to_train)
         
@@ -172,14 +174,14 @@ class ANN():
         
         elif self.type == "LSTM":
             if len(self.layers) > 1:
-                model.add(self.model_functions[self.type](self.layers[0], input_shape= self.input_type, activation="relu", return_sequences= True))
+                model.add(self.model_functions[self.type](self.layers[0], input_shape= self.input_type, activation="sigmoid", return_sequences= True))
                 model.add(tf.keras.layers.Dropout(0.4))
             #adding hidden layers
             for layer in self.layers[1:-1]:
                 model.add(self.model_functions[self.type](layer, activation="relu", return_sequences= True))
                 model.add(tf.keras.layers.Dropout(0.4))
             
-            model.add(self.model_functions[self.type](self.layers[-1], activation="relu"))
+            model.add(self.model_functions[self.type](self.layers[-1], activation="tanh"))
             model.add(tf.keras.layers.Dropout(0.4))
         
         elif self.type == "CNN":
@@ -197,7 +199,7 @@ class ANN():
         
         
         #last/output layer    
-        model.add(tf.keras.layers.Dense(6, activation="sigmoid"))
+        model.add(tf.keras.layers.Dense(6, activation= "sigmoid"))
         # Train neural network
         model.compile(
             optimizer= train_method,
